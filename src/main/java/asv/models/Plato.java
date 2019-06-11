@@ -19,7 +19,16 @@ public class Plato {
 	@Column(name="precio")
 	private Double precio;
 	
+	@Column(name="tipo")
+	private PlatoType tipo;
 	
+	
+	public PlatoType getTipo() {
+		return tipo;
+	}
+	public void setTipo(PlatoType tipo) {
+		this.tipo = tipo;
+	}
 	public Long getIdPlato() {
 		return idPlato;
 	}
