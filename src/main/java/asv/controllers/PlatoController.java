@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import asv.models.Plato;
+import asv.models.PlatoType;
 import asv.services.PlatoService;
 
 @RestController
@@ -22,8 +24,17 @@ public class PlatoController {
 	PlatoService platoService;
 	
 	@GetMapping
-    public Iterable<Plato> list() {
-        return platoService.list();
+    public Iterable<Plato> list(@RequestParam(defaultValue = "") String tipo) {
+		if(tipo.equals(""))
+			return platoService.list();
+		else {
+			try {
+				return platoService.listByTipo(Enum.valueOf(PlatoType.class, tipo));
+			}catch (Exception e) {
+				return platoService.list();
+			}
+		}
+			
 	}
 	
 	@GetMapping(value = "/{id}")

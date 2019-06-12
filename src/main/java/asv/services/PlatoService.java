@@ -3,10 +3,11 @@ package asv.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+//import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import asv.models.Plato;
+import asv.models.PlatoType;
 import asv.repositories.IPlatoRepository;
 
 @Service
@@ -17,6 +18,11 @@ public class PlatoService {
 	
     public Iterable<Plato> list() {
     	return platoRepository.findAll();
+    	//return platoRepository.findAll(PageRequest.of(1, 2));
+	}
+    
+    public Iterable<Plato> listByTipo(PlatoType id) {
+    	return platoRepository.findByTipo(id);
     	//return platoRepository.findAll(PageRequest.of(1, 2));
 	}
 	
