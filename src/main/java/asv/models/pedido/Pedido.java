@@ -22,6 +22,15 @@ public class Pedido {
 	private LocalDateTime fechaServicio= LocalDateTime.now();
 	
 	private IPedidoState estado = new PedidoStateEmitido();
+	
+
+	public IPedidoState getEstado() {
+		return estado;
+	}
+
+	public void setEstado(IPedidoState estado) {
+		this.estado = estado;
+	}
 
 	public Boolean changeState(IPedidoState next) {
 		if(this.estado.equals(next))
