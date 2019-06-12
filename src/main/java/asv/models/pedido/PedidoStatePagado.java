@@ -1,6 +1,6 @@
 package asv.models.pedido;
 
-public class PedidoStatePagado implements IPedidoState {
+public class PedidoStatePagado extends PedidoState {
 
 	/**
 	 * 
@@ -8,8 +8,7 @@ public class PedidoStatePagado implements IPedidoState {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Boolean changeState(IPedidoState p) {
+	public Boolean changeState(PedidoState p) {
 		return false;
 	}
-
 }

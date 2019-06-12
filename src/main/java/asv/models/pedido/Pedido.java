@@ -21,18 +21,19 @@ public class Pedido {
 	@Column(name="date")
 	private LocalDateTime fechaServicio= LocalDateTime.now();
 	
-	private IPedidoState estado = new PedidoStateEmitido();
+	@Column(name="state")
+	private PedidoState estado = new PedidoStateEmitido();
 	
 
-	public IPedidoState getEstado() {
+	public PedidoState getEstado() {
 		return estado;
 	}
 
-	public void setEstado(IPedidoState estado) {
+	public void setEstado(PedidoState estado) {
 		this.estado = estado;
 	}
 
-	public Boolean changeState(IPedidoState next) {
+	public Boolean changeState(PedidoState next) {
 		if(this.estado.equals(next))
 			return false;
 		if(estado.changeState(next)) {
@@ -42,7 +43,7 @@ public class Pedido {
 		return false;
 	}
 	
-	public IPedidoState getState() {
+	public PedidoState getState() {
 		return this.estado;
 	}
 	
