@@ -19,7 +19,7 @@ public class Plato {
 	@Column(name="precio")
 	private Double precio;
 	
-	@Column(name="tipo")
+	@Column(name="tipo",unique=true)
 	private PlatoType tipo;
 	
 	

@@ -15,47 +15,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import asv.models.Plato;
-import asv.models.PlatoType;
-import asv.services.PlatoService;
+import asv.models.pedido.Pedido;
+import asv.services.PedidoService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/platos")
-public class PlatoController {
+@RequestMapping("/pedidos")
+public class PedidoController {
+	
 	@Autowired
-	PlatoService platoService;
+	PedidoService pedidoService;
 	
 	@GetMapping
-    public Iterable<Plato> list(@RequestParam(defaultValue = "") String tipo) {
-		if(tipo.equals(""))
-			return platoService.list();
+    public Iterable<Pedido> list(@RequestParam(defaultValue = "") String nombre) {
+		if(nombre.equals(""))
+			return pedidoService.list();
 		else {
-			try {
-				return platoService.listByTipo(Enum.valueOf(PlatoType.class, tipo));
-			}catch (Exception e) {
-				return platoService.list();
-			}
-		}
-			
+			return pedidoService.listByUser(nombre);
+		}			
 	}
 	
-	@GetMapping(value = "/{id}")
-    public Optional<Plato> find(@PathVariable("id") Long id) {
-        return platoService.find(id);
-    }
+	@GetMapping(value="/{id}")
+	public Optional<Pedido> find(@PathVariable("id") Long id){
+		return pedidoService.find(id);
+	}
 	
 	@PostMapping
-	public Plato insert(@RequestBody Plato plato) {
-		return platoService.insert(plato);
+	public Pedido insert(@RequestBody Pedido pedido) {
+		return pedidoService.insert(pedido);
 	}
 	
 	@PutMapping
-	public Plato update(@RequestBody Plato plato) {
-		return platoService.update(plato);
+	public Pedido update(@RequestBody Pedido pedido) {
+		return pedidoService.update(pedido);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable("id") Long id) {
-		platoService.delete(id);
+		pedidoService.delete(id);
 	}
+	
 }
