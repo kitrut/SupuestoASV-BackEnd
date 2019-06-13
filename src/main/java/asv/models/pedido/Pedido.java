@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,29 +23,26 @@ public class Pedido {
 	@Column(name="date")
 	private LocalDateTime fechaServicio= LocalDateTime.now();
 	
-	@Column(name="state")
-	private PedidoState estado = new PedidoStateEmitido();
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name="estado")
+	private PedidoStatus estado = PedidoStatus.EMITIDO;
 	
 
-	public PedidoState getEstado() {
+	public PedidoStatus getEstado() {
 		return estado;
 	}
 
-	public void setEstado(PedidoState estado) {
+	public void setEstado(PedidoStatus estado) {
 		this.estado = estado;
 	}
 
-	public Boolean changeState(PedidoState next) {
+	public PedidoStatus changeState(PedidoStatus next) {
 		if(this.estado.equals(next))
-			return false;
-		if(estado.changeState(next)) {
-			this.estado = next;
-			return true;
-		}
-		return false;
+			return this.estado;
+		return estado.changeState(next);
 	}
 	
-	public PedidoState getState() {
+	public PedidoStatus getState() {
 		return this.estado;
 	}
 	

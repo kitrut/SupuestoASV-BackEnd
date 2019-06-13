@@ -14,6 +14,7 @@ import asv.models.PlatoType;
 public interface IPlatoRepository<T,ID extends Serializable> extends CrudRepository<Plato, Long>{
 
 	List<Plato> findByTipo(PlatoType tipo);
+	public List<Plato> findAllByOrderByNombreAsc();
 	//Iterable<T> findAll(Sort sort);
 
 	//Page<T> findAll(Pageable pageable);

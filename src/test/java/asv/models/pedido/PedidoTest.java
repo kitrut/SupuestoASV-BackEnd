@@ -9,25 +9,16 @@ import org.junit.jupiter.api.Test;
 public class PedidoTest {
 
 	private Pedido pedido;
-	private static PedidoStatePagado StatePagado;
-	private static PedidoStateEmitido StateEmitido;
-	private static PedidoStateEntregado StateEntregado;
-	private static PedidoStateCancelado StateCancelado;
 	
 	@BeforeAll
-	public static void init() {		
-		StatePagado = new PedidoStatePagado();
-		StateEmitido = new PedidoStateEmitido();
-		StateEntregado = new PedidoStateEntregado();
-		StateCancelado = new PedidoStateCancelado();
-	}
+	public static void init() {}
 	
 	@BeforeEach
 	public void setUp() throws Exception {
 		pedido = new Pedido();
 	}
 
-	@Test
+	/*@Test
 	public void CambioEstadoEmitidoToOthers() {
 		assertTrue(pedido.getState() instanceof PedidoStateEmitido);		
 		
@@ -105,6 +96,7 @@ public class PedidoTest {
 		pedido.changeState(StateCancelado);
 		assertTrue(pedido.getState() instanceof PedidoStatePagado);	
 	}
+	*/
 
 
 }

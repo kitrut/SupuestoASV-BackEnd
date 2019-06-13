@@ -17,7 +17,7 @@ public class PlatoService {
 	IPlatoRepository<Plato, ?> platoRepository;
 	
     public Iterable<Plato> list() {
-    	return platoRepository.findAll();
+    	return platoRepository.findAllByOrderByNombreAsc();
     	//return platoRepository.findAll(PageRequest.of(1, 2));
 	}
     
