@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,14 +29,36 @@ public class Pedido {
 	@Column(name="date")
 	private LocalDateTime fechaServicio= LocalDateTime.now();
 	
+	@Column(name="fechaentrega")
+	private LocalDateTime fechaEntrega= LocalDateTime.now();
+	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name="estado")
 	private PedidoStatus estado = PedidoStatus.EMITIDO;
 	
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JsonManagedReference
     private Set<LineaPedido> lineas;
 	
+	@Column(name="total")
+	private Double total;
+	
+
+	
+	public LocalDateTime getFechaEntrega() {
+		return fechaEntrega;
+	}
+
+	public void setFechaEntrega(LocalDateTime fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
 
 	public Set<LineaPedido> getLineas() {
 		return lineas;
