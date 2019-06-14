@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import asv.models.pedido.Pedido;
+import asv.models.Pedido;
 
 public interface IPedidoRepository <T,ID extends Serializable> extends CrudRepository<Pedido, Long>{
 
