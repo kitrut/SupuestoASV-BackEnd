@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import asv.CafeteriaRestApplication;
 import asv.models.Pedido;
+import asv.models.PedidoStatus;
 import asv.repositories.IPedidoRepository;
 
 @Service
@@ -49,7 +50,12 @@ public class PedidoService {
 	
 	public Pedido update( Pedido pedido) {
 		Optional<Pedido> old = pedidoRepository.findById(pedido.getIdPedido());
-		if(old.isPresent()) {
+		if(old.isPresent()) {			
+			if(pedido.getEstado()==PedidoStatus.CANCELADO && old.get().getEstado()==PedidoStatus.EMITIDO) {
+				if(old.get().getFechaServicio().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
+					return null;
+				}
+			}
 			old.get().changeState(pedido.getEstado());
 			return pedidoRepository.save(old.get());
 		}		
