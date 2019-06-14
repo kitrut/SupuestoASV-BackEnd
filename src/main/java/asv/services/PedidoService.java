@@ -1,5 +1,6 @@
 package asv.services;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,26 @@ public class PedidoService {
     }
 	
 	public Pedido insert(Pedido pedido) {
-		return pedidoRepository.save(pedido);
+		LocalDateTime fecha = LocalDateTime.now();
+		pedido.setFechaServicio(fecha);
+		
+		if(fecha.getHour() < 11 && fecha.getMinute() < 0) {
+			pedido.setFechaEntrega(fecha);
+			return pedidoRepository.save(pedido);
+		}else {
+			pedido.setFechaEntrega(fecha.plusDays(1));
+			return pedidoRepository.save(pedido);
+		}
+		
 	}
 	
 	public Pedido update( Pedido pedido) {
-		return pedidoRepository.save(pedido);
+		Optional<Pedido> old = pedidoRepository.findById(pedido.getIdPedido());
+		if(old.isPresent()) {
+			old.get().changeState(pedido.getEstado());
+			return pedidoRepository.save(old.get());
+		}		
+		return null;
 	}
 	
 	public void delete(Long id) {

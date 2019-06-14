@@ -2,6 +2,7 @@ package asv.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class LineaPedido {
 	@Column(name="cantidad")
 	private Double cantidad;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	@JsonBackReference
 	private Pedido pedido;

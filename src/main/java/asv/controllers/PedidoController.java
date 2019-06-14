@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import asv.models.Pedido;
-import asv.models.Plato;
 import asv.services.PedidoService;
 
 @RestController
@@ -47,6 +46,7 @@ public class PedidoController {
 	
 	@PutMapping
 	public Pedido update(@RequestBody Pedido pedido) {
+		System.out.println("Put llamado");
 		return pedidoService.update(pedido);
 	}
 	
