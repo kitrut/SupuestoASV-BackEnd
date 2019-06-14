@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import asv.models.Pedido;
+
 public class PedidoTest {
 
 	private Pedido pedido;

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import asv.models.Pedido;
 import asv.models.Plato;
-import asv.models.pedido.Pedido;
 import asv.services.PedidoService;
 
 @RestController

@@ -1,4 +1,4 @@
-package asv.models.pedido;
+package asv.models;
 
 public enum PedidoStatus implements IPedidoOps {
 	EMITIDO{

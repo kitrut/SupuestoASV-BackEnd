@@ -1,7 +1,9 @@
-package asv.models.pedido;
+package asv.models;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido {
@@ -27,6 +32,18 @@ public class Pedido {
 	@Column(name="estado")
 	private PedidoStatus estado = PedidoStatus.EMITIDO;
 	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	@JsonManagedReference
+    private Set<LineaPedido> lineas;
+	
+
+	public Set<LineaPedido> getLineas() {
+		return lineas;
+	}
+
+	public void setLineas(Set<LineaPedido> lineas) {
+		this.lineas = lineas;
+	}
 
 	public PedidoStatus getEstado() {
 		return estado;
