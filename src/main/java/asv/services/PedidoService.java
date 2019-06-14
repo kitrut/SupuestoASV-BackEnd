@@ -1,16 +1,22 @@
 package asv.services;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import asv.CafeteriaRestApplication;
 import asv.models.Pedido;
 import asv.repositories.IPedidoRepository;
 
 @Service
 public class PedidoService {
+	private static final Logger logger = LoggerFactory.getLogger(PedidoService.class);
 	
 	@Autowired
 	IPedidoRepository<Pedido, ?> pedidoRepository;
@@ -53,4 +59,15 @@ public class PedidoService {
 	public void delete(Long id) {
 		pedidoRepository.deleteById(id);
 	}
+	
+	@Scheduled(cron = "0 0 13 * * *")
+	public void actualizarEmitidoToEntregado() {
+		logger.info("Auto: entrega de pedidos en ejecución", (LocalDateTime.now()) );
+		LocalDateTime dateInit = LocalDateTime.now();
+		logger.info("Auto: entrega de pedidos ejecutada", (LocalDateTime.now()) );
+		dateInit.truncatedTo(ChronoUnit.HOURS).truncatedTo(ChronoUnit.MINUTES).truncatedTo(ChronoUnit.SECONDS).truncatedTo(ChronoUnit.MILLIS);
+		LocalDateTime dateFin = dateInit.plus(1, ChronoUnit.DAYS);
+		pedidoRepository.entregaPedidosEmitidos(dateInit, dateFin);
+	}
+	
 }
