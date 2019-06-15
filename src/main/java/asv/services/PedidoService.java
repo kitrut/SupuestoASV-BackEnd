@@ -52,7 +52,7 @@ public class PedidoService {
 		Optional<Pedido> old = pedidoRepository.findById(pedido.getIdPedido());
 		if(old.isPresent()) {			
 			if(pedido.getEstado()==PedidoStatus.CANCELADO && old.get().getEstado()==PedidoStatus.EMITIDO) {
-				if(old.get().getFechaServicio().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
+				if(old.get().getFechaEntrega().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
 					return null;
 				}
 			}
