@@ -76,10 +76,10 @@ public class Pedido {
 		this.estado = estado;
 	}
 
-	public PedidoStatus changeState(PedidoStatus next) {
+	public void changeState(PedidoStatus next) {
 		if(this.estado.equals(next))
-			return this.estado;
-		return estado.changeState(next);
+			return;
+		this.estado=next;
 	}
 	
 	public PedidoStatus getState() {
